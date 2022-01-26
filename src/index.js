@@ -5,13 +5,19 @@ const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const app = express();
 const port = process.env.PORT || 8080;
-const serviceAccount = require("./../config/serviceAccountKey.json");
+
+// CS5356 TODO #2
+// Uncomment this next line after you've created
+// serviceAccountKey.json
+// const serviceAccount = require("./../config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// CS5356 TODO #2
+// Uncomment this next block after you've created serviceAccountKey.json
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
 
 // use cookies
 app.use(cookieParser());
@@ -47,7 +53,7 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 });
 
 app.post("/sessionLogin", async (req, res) => {
-  // CS5356 TODO
+  // CS5356 TODO #4
   // Get the ID token from the request body
   // Create a session cookie using the Firebase Admin SDK
   // Set that cookie with the name 'session'
@@ -61,7 +67,7 @@ app.get("/sessionLogout", (req, res) => {
 });
 
 app.post("/dog-messages", authMiddleware, async (req, res) => {
-  // CS5356 TODO
+  // CS5356 TODO #5
   // Get the message that was submitted from the request body
   // Get the user object from the request body
   // Add the message to the userFeed so its associated with the user

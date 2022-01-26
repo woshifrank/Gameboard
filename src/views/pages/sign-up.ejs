@@ -19,6 +19,8 @@
       <input type="password" name="password" />
       <button>Log in</button>
     </form>
+    <div id="login-error" style="display: none;">
+    </div>
     <a href="/dashboard">Dashboard</a>
   </div>
 </body>
@@ -31,12 +33,8 @@
   window.onload = () => {
     console.log('Running onload')
     const firebaseConfig = {
-      apiKey: "AIzaSyAcOOrRsSZhb5Fl7Kx0l5g93kkoMDlthKI",
-      authDomain: "cs5356-2022.firebaseapp.com",
-      projectId: "cs5356-2022",
-      storageBucket: "cs5356-2022.appspot.com",
-      messagingSenderId: "995795303337",
-      appId: "1:995795303337:web:df9e9958acf6fb8eb9a2b8"
+      // CS5356 TODO #2
+      // Copy your Firebase config here too
     };
 
     const app = firebase.initializeApp(firebaseConfig);
@@ -50,26 +48,12 @@
         const login = event.target.login.value;
         const password = event.target.password.value;
 
-        app
-          .auth()
-          .createUserWithEmailAndPassword(login, password)
-          .then(({ user }) => {
-            return user.getIdToken().then((idToken) => {
-              return fetch("/sessionLogin", {
-                method: "POST",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ idToken }),
-              });
-            });
-          })
-          .then(() => {
-            window.location.assign("/dashboard");
-          }).catch(err => {
-            console.error('failed', err)
-          });
+        // CS5356 TODO #3
+        // Create a new user using the Firebase SDK for Web
+        // Get the users ID token
+        // Start a new session with the users ID token
+        // Redirect the user to the /dashboard
+
         return false;
       });
   };
