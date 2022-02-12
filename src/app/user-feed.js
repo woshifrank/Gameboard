@@ -1,6 +1,6 @@
 const casual = require("casual");
 const fetch = require("node-fetch");
-
+const { initializeApp } = require('firebase-admin/app');
 const userFeed = [];
 
 const get = async () => {
