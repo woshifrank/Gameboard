@@ -11,7 +11,7 @@ const { initializeApp } = require('firebase-admin/app');
 // add serviceAccountKey.json into gitignore
 // Uncomment this next line after you've created
 // serviceAccountKey.json
-const serviceAccount = require("./../config/serviceAccountKey.json");
+const serviceAccount = require("../config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
 
@@ -54,14 +54,34 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
   res.render("pages/dashboard", { user: req.user, feed });
 });
 
+/* listens to POST requests,*/
 app.post("/sessionLogin", async (req, res) => {
   // CS5356 TODO #4
   // Get the ID token from the request body
   // Create a session cookie using the Firebase Admin SDK
   // Set that cookie with the name 'session'
   // And then return a 200 status code instead of a 501
+  const idToken = req.body.idToken;
+  const expiresIn = 60 * 60 * 24 * 5 * 1000;
+  admin.auth().createSessionCookie(idToken,{expiresIn}).then(
+    sessionCookie => {
+      const options = {maxAge: expiresIn, httpOnly: True};
+      res.cookie("session", sessionCookie, options);
+      res.status(200).send(JSON.stringify({status:"success"}));
+    },
+    error => {
+      res.status(401).send('UNAUTHORIZED REQUEST!');
+    }
+  );
   res.status(501).send();
 });
+/*
+await fetch('/sessionLogin', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: .... // add the users ID token here
+})  
+*/
 
 app.get("/sessionLogout", (req, res) => {
   res.clearCookie("session");
