@@ -59,29 +59,27 @@
         // Get the users ID token
         // Start a new session with the users ID token
         // Redirect the user to the /dashboard
-        import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, login, password)
+
+        //import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+        //const auth = getAuth();
+        app.auth().createUserWithEmailAndPassword(login, password)
           .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
             user.getIdToken().then((idToken) =>{
-              await fetch('/sessionLogin', {
+              fetch('/sessionLogin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({idToken})
               }).then(() =>{
-                // redirect the browser to a new page.
+              // redirect the browser to a new page.
                 window.location.href = '/dashboard'
-                })
+              })
             })
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
+          }).catch((error) => {
+            alert('Wrong password or the email account is invalid');
           });
-        return false;
+        // return false;
       });
   };
 </script>

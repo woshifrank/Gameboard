@@ -61,6 +61,7 @@ app.post("/sessionLogin", async (req, res) => {
   // Create a session cookie using the Firebase Admin SDK
   // Set that cookie with the name 'session'
   // And then return a 200 status code instead of a 501
+
   const idToken = req.body.idToken;
   const expiresIn = 60 * 60 * 24 * 5 * 1000;
   admin.auth().createSessionCookie(idToken,{expiresIn}).then(
@@ -70,10 +71,13 @@ app.post("/sessionLogin", async (req, res) => {
       res.status(200).send(JSON.stringify({status:"success"}));
     },
     error => {
-      res.status(401).send('UNAUTHORIZED REQUEST!');
+      res.status(401).send({
+        success: false,
+        error: JSON.stringify(error)
+      });
+      ///res.status(401).send('UNAUTHORIZED REQUEST!');
     }
   );
-  res.status(501).send();
 });
 /*
 await fetch('/sessionLogin', {
