@@ -74,12 +74,15 @@
               }).then(() =>{
               // redirect the browser to a new page.
                 window.location.href = '/dashboard'
+                return false;
               })
             })
           }).catch((error) => {
-            alert('Wrong password or the email account is invalid');
+            // debugger
+            alert('Please check whether you entered a password more than or equal to 6 digits, \
+            Otherwise,this email has been registered, please use the login option');
           });
-        // return false;
+        return false;
       });
   };
 </script>

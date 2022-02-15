@@ -18,7 +18,7 @@ const authMiddleware = require("./app/auth-middleware");
 // CS5356 TODO #2
 // Uncomment this next block after you've created serviceAccountKey.json
 admin.initializeApp({
-  redential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount),
 });
 
 // use cookies
@@ -38,6 +38,10 @@ app.use("/static", express.static("static/"));
 // use res.render to load up an ejs view file
 // index page
 app.get("/", function (req, res) {
+  //HTTP only = no sensitive data in cookies!
+  //Google amazon set up cookies and follow you around in other website
+  // window.cookieStore.getAll(), http-only not visible in this case
+  //res.cookie('my-cookie','123', {httpOnly = True})
   res.render("pages/index");
 });
 
@@ -61,16 +65,18 @@ app.post("/sessionLogin", async (req, res) => {
   // Create a session cookie using the Firebase Admin SDK
   // Set that cookie with the name 'session'
   // And then return a 200 status code instead of a 501
-
+  
   const idToken = req.body.idToken;
+  //console.log(idToken)
   const expiresIn = 60 * 60 * 24 * 5 * 1000;
   admin.auth().createSessionCookie(idToken,{expiresIn}).then(
     sessionCookie => {
-      const options = {maxAge: expiresIn, httpOnly: True};
+      const options = {maxAge: expiresIn, httpOnly: true};
       res.cookie("session", sessionCookie, options);
       res.status(200).send(JSON.stringify({status:"success"}));
     },
     error => {
+      console.log(error)
       res.status(401).send({
         success: false,
         error: JSON.stringify(error)

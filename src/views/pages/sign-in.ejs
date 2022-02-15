@@ -72,12 +72,17 @@
               }).then(() =>{
                 // redirect the browser to a new page.
                 window.location.href = '/dashboard'
-              })
+                return false;
+              }).catch((error) => {
+              //debugger
+                console.log(error)
+              });
             })
           }).catch((error) => {
+            //debugger
             alert('Wrong password or the email account is invalid');
           });
-        // return false;
+        return false;
       });
   };
 </script>
