@@ -94,8 +94,22 @@ await fetch('/sessionLogin', {
 */
 
 app.get("/sessionLogout", (req, res) => {
+  /*
   res.clearCookie("session");
-  res.redirect("/sign-in");
+  res.redirect("/sign-in");*/
+  const sessionCookie = req.cookies.session || '';
+  res.clearCookie('session');
+  admin.auth()
+    .verifySessionCookie(sessionCookie)
+    .then((decodedClaims) => {
+      return getAuth().revokeRefreshTokens(decodedClaims.sub);
+    })
+    .then(() => {
+      res.redirect('/sign-in');
+    })
+    .catch((error) => {
+      res.redirect('/sign-in');
+    });
 });
 
 app.post("/dog-messages", authMiddleware, async (req, res) => {
@@ -103,6 +117,13 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
   // Get the message that was submitted from the request body
   // Get the user object from the request body
   // Add the message to the userFeed so its associated with the user
+  
+  message = req.body.message
+  user = req.user
+
+  await userFeed.add(user,message)
+  const feed = await userFeed.get();
+  res.render("pages/dashboard", { user: req.user, feed }); 
 });
 
 app.listen(port);

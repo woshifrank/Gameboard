@@ -19,10 +19,29 @@
             <%= email %>
               <i class="material-icons">person_outline</i>
           </a>
+          <a href="/sessionLogout" class="button is-primary">Sign out
+          </a>
         </div>
       </div>
       <% } else if(locals.hideSignIn) { %>
-      <% } else { %>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <a href="/sign-up" class="button is-link">Sign up for a new account
+              </a>
+            </div>
+          </div>
+        </div>
+      <% } else if(locals.hideSignup) { %>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <a href="/sign-in" class="button is-primary">Sign in for an existing account
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }else { %>
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
             <div class="navbar-item">
