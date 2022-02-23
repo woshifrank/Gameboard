@@ -1,10 +1,13 @@
-<nav class="navbar">
+<nav class="navbar is-warning">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <figure class="image">
-          <img class="is-rounded" src="https://bulma.io/images/placeholders/64x64.png" alt="Logo">
-        </figure>
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+          <span>Home</span>
+        </span>
       </a>
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
         <span aria-hidden="true"></span>
@@ -45,10 +48,16 @@
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
             <div class="navbar-item">
-              <a href="/sign-in" class="button is-primary">Sign In
-              </a>
-              <a href="/sign-up" class="button is-link">Sign Up
-              </a>
+              <p class="control">
+                <a href="/sign-in" class="button is-primary">Sign In
+                </a>
+              </p>
+            </div>
+            <div class="navbar-item">
+              <p class="control">
+                <a href="/sign-up" class="button is-link">Sign Up
+                </a>
+              </p>
             </div>
           </div>
         </div>

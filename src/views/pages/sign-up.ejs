@@ -3,6 +3,7 @@
 
 <head>
   <%- include('../partials/head') %>
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
 <body>
@@ -10,19 +11,62 @@
     <%- include('../partials/nav', { hideSignup: true }) %>
   </header>
 
-  <div class="container">
-    Sign Up for a new account or <a href="/sign-in">click here to sign in with an existing account</a>
-    <form id="login-form">
-      <label>Please enter an email for your account</label>
-      <input id="login" type="text" name="login" />
-      <label>Please set up the account password</label>
-      <input type="password" name="password" />
-      <button>register</button>
-    </form>
-    <div id="login-error" style="display: none;">
+  
+  <section class = "hero is-info">
+    <div class = "hero-body">
+      <section class="section">
+        <div class="columns">
+          <div class="column is-4 is-offset-4">
+            <div class="has-text-weight-bold mb-2">
+              Sign Up for a new account 
+            </div>
+            <form id="login-form" class = "box">
+              <div class="field">
+                <label>New account email</label>
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input is-success" type="text" name = "login" id = "login">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </p>
+              </div>
+        
+              <div class="field">
+                <label>New account password</label>
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input is-success" type="password" name = "password" 
+                    placeholder="Please enter a password >= 6 digits">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </p>
+              </div>
+        
+              <div class="box has-text-centered">
+                <button class="button is-info is-rounded">Register a new account</button>
+              </div>
+            </form>
+            <div id="login-error" style="display: none;">
+            </div>
+            <div class="field is-grouped is-grouped-centered">
+              <p class="control">
+                <a href="/sign-in" class = "button is-primary">Sign in with an existing account</a>
+              </p>
+              <p class="control">
+                <a href="/dashboard" class = "button is-link">Go back to the Dashboard</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <a href="/dashboard">Go back to the Dashboard</a>
-  </div>
+  </section>
 </body>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app-compat.js"></script>
