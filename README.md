@@ -1,6 +1,4 @@
-# Milestone 1 Project: Ruffhouse
-
-Refer to the assignment for most of the details of the project
+# Milestone 2 Gameboard
 
 ## Usage
 
