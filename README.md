@@ -3,5 +3,6 @@
 ## Usage
 
 * Run  `npm install` to install all the project dependencies
-* Run `npm run start` to start the server
-* Visit http://localhost:8080 in your browser to see the web application
+* Run `npx firebase emulators:start` to start the emulator
+* View Emulator UI at http://127.0.0.1:4000
+* Please check gitignore for serviceAccountKey naming
