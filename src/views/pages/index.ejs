@@ -6,6 +6,7 @@
     <!-- Include any custom css classes that you want available on this page here -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="/public/assets/index.css" rel="stylesheet" type="text/css">
     <style>
     </style>
 </head>
@@ -16,53 +17,19 @@
   </header>
   <!-- CS5356 TODO #1 Add your landing page here -->
   <!-- hero-->
-    <section class = "hero is-info">
-      <div class = "hero-body">
-          <div class = "container">
-            <h1 class = "title is-2">Ruffhouse</h1>
-            <h2 class = "subtitle is-4">A socializing place for your loving dog</h2>
-          </div>
-      </div>
-    </section>
-  <!-- column-->
-  <div class = "columns">
-
-    <div class = "column">
-      <div class = "card">
-        <div class = "card-conent">
-          <h1 class = "title is-4">Product Overview</h1>
-          A web app that allows for people to share a constant stream of dog pictures
-        </div>
-        <footer class = "card-footer">
-          <div class = "card-footer-item"></div>
-        </footer>
-      </div>
+  <div class = "hero-image">
+    <div class = "hero-text">
+      <div class = "header1"><h1 class = "title is-2">Find your Gaming Pals in Gameboard</h1></div>
+      <h2 class = "subtitle is-4 header2">Discord style forum specific to video game discussion</h2>
     </div>
 
-    <div class = "column">
-      <div class = "card">
-        <div class = "card-conent">
-          <h1 class = "title is-4">Feature Sets</h1>
-          <div class = "content">
-            <ul>
-              <li>Share your loving dog's images</li>
-              <li>View other dog images</li>
-              <li>Sign up or Login with your email to use the above features</li>
-            </ul>
-          </div>
-        </div>
-        <footer class = "card-footer">
-          <div class = "card-footer-item"></div>
-        </footer>
-      </div>
-    </div>
-
-    <div class = "column">
-      <div class = "column">
+    <!-- column-->
+    <div class = "columns is-multiline">
+      <div class = "column is-half">
         <div class = "card">
           <div class = "card-conent">
-            <h1 class = "title is-4">How to sign up</h1>
-            Please register with an email address and login password
+            <h1 class = "title is-4">Check out news for popular games</h1>
+            Join game discussion groups to receive new official annoucements from game companies.
           </div>
           <footer class = "card-footer">
             <div class = "card-footer-item">
@@ -78,12 +45,80 @@
           </footer>
         </div>
       </div>
-      <div class = "column">
+  
+      <div class = "column is-half">
+        <div class = "card">
+          <div class = "card-conent">
+            <h1 class = "title is-4">Meet other gamers in game discussion groups </h1>
+            Customized channels include meme posting, bug reports, team matching and gaming walkthroughs. 
+            Join group channels that interests you to meet with other gamers.
+          </div>
+          <footer class = "card-footer">
+            <div class = "card-footer-item">
+              <a href = "/sign-up" class = "button is-link">
+                New User Sign up
+              </a>
+            </div>
+            <div class = "card-footer-item">
+              <a href = "/sign-in" class = "button is-primary">
+                Existing User Sign in
+              </a>
+            </div>
+          </footer>
+        </div>
+      </div>
+  
+      <div class = "column is-half">
+        <div class = "column">
+          <div class = "card">
+            <div class = "card-conent">
+              <h1 class = "title is-4">Share your gaming experience </h1>
+              Post your gaming insights, questions or walkthroughts in discussion channels. 
+              Make comments to other’s posts and share your concerns. 
+            </div>
+            <footer class = "card-footer">
+              <div class = "card-footer-item">
+                <a href = "/sign-up" class = "button is-link">
+                  New User Sign up
+                </a>
+              </div>
+              <div class = "card-footer-item">
+                <a href = "/sign-in" class = "button is-primary">
+                  Existing User Sign in
+                </a>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+      <div class = "column is-half">
+        <div class = "column">
+          <div class = "card">
+            <div class = "card-conent">
+              <h1 class = "title is-4">Provide feedback to game developers</h1>
+              Post bug reports and gaming experience suggestion to the feedback channel managed by the game developers. 
+              Give a thumbs up if you see others having the same concerns with you.
+            </div>
+            <footer class = "card-footer">
+              <div class = "card-footer-item">
+                <a href = "/sign-up" class = "button is-link">
+                  New User Sign up
+                </a>
+              </div>
+              <div class = "card-footer-item">
+                <a href = "/sign-in" class = "button is-primary">
+                  Existing User Sign in
+                </a>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
-
-</body>
-
-<%- include('../partials/footer') %>
-
+    <footer>
+      <%- include('../partials/footer') %>
+    </footer>
+  </body>
 </html>

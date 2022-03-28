@@ -1,3 +1,4 @@
+const functions = require("firebase-functions")
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -6,7 +7,6 @@ const admin = require("firebase-admin");
 const app = express();
 const port = process.env.PORT || 8080;
 const { initializeApp } = require('firebase-admin/app');
-const functions = require("firebase-functions")
 
 // CS5356 TODO #2
 // add gameboard-serviceAccountKey.json into gitignore
@@ -34,7 +34,7 @@ app.use(
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use("/static", express.static("static/"));
+app.use("/public", express.static("public/"));
 
 // use res.render to load up an ejs view file
 // index page
@@ -138,7 +138,9 @@ exports.helloWorld = functions.https.onRequest((request,response) => {
   response.send('Hello from Firebase');
 });
 */
+
 exports.app = functions.https.onRequest(app);
 // functions.logger.log(error);
-//app.listen(port);
+
+// app.listen(port);
 //console.log("Server started at http://localhost:" + port);

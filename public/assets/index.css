@@ -1,0 +1,39 @@
+* {
+    font-family:'Montserrat';
+   }
+.hero-text {
+    text-align: left;
+    top: 20%;
+    left: 20%;
+    margin-bottom: 4rem;
+    transform: translate(5%, 5%);
+    /* 
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);*/
+}
+.header1{
+    margin-bottom: 2em;
+}
+.header2 {
+    transform: translate(7%, 7%);
+    font-weight: bold;
+}
+.hero-body {
+    height: 100%;
+    margin: 0; 
+}
+.hero-image {
+    height: 100vh;
+    width: 100%;
+    background-image: url(../Gameboard-bg.png);
+    /*height: 50%;*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  .card{
+    background-color: transparent; 
+  } 
