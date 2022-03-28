@@ -6,17 +6,18 @@ const admin = require("firebase-admin");
 const app = express();
 const port = process.env.PORT || 8080;
 const { initializeApp } = require('firebase-admin/app');
+const functions = require("firebase-functions")
 
 // CS5356 TODO #2
-// add serviceAccountKey.json into gitignore
+// add gameboard-serviceAccountKey.json into gitignore
 // Uncomment this next line after you've created
-// serviceAccountKey.json
-const serviceAccount = require("../config/serviceAccountKey.json");
+// gameboard-serviceAccountKey.json
+const serviceAccount = require("../config/gameboard-serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
 
 // CS5356 TODO #2
-// Uncomment this next block after you've created serviceAccountKey.json
+// Uncomment this next block after you've created gameboard-serviceAccountKey.json
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -73,6 +74,7 @@ app.post("/sessionLogin", async (req, res) => {
     sessionCookie => {
       const options = {maxAge: expiresIn, httpOnly: true};
       res.cookie("session", sessionCookie, options);
+      //res.cookie("__session", sessionCookie, options);
       res.status(200).send(JSON.stringify({status:"success"}));
     },
     error => {
@@ -99,6 +101,10 @@ app.get("/sessionLogout", (req, res) => {
   res.redirect("/sign-in");*/
   const sessionCookie = req.cookies.session || '';
   res.clearCookie('session');
+  /*
+  const sessionCookie = req.cookies["__session"] || "";
+  res.clearCookie("__session");
+  */
   admin.auth()
     .verifySessionCookie(sessionCookie)
     .then((decodedClaims) => {
@@ -126,5 +132,13 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
   res.render("pages/dashboard", { user: req.user, feed }); 
 });
 
-app.listen(port);
-console.log("Server started at http://localhost:" + port);
+/*
+exports.helloWorld = functions.https.onRequest((request,response) => {
+  functions.logger.info("Hello logs",{structuredData:true});
+  response.send('Hello from Firebase');
+});
+*/
+exports.app = functions.https.onRequest(app);
+// functions.logger.log(error);
+//app.listen(port);
+//console.log("Server started at http://localhost:" + port);
