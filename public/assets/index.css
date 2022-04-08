@@ -27,7 +27,7 @@
 .hero-image {
     height: 100vh;
     width: 100%;
-    background-image: url(../Gameboard-bg.png);
+    background-image: url(../Artwork.png);
     /*height: 50%;*/
     background-position: center;
     background-repeat: no-repeat;
@@ -36,4 +36,15 @@
   }
   .card{
     background-color: transparent; 
+    box-shadow:None
+  }
+  .card-footer{
+    border-top:None;
+  }
+  .card-footer-item{
+    border-right:None;
+    border-left:None;
+  }
+  .card-footer-item:not(:last-child){
+    border-right:None;
   } 

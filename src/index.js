@@ -73,8 +73,8 @@ app.post("/sessionLogin", async (req, res) => {
   admin.auth().createSessionCookie(idToken,{expiresIn}).then(
     sessionCookie => {
       const options = {maxAge: expiresIn, httpOnly: true};
-      //res.cookie("session", sessionCookie, options);
-      res.cookie("__session", sessionCookie, options);
+      res.cookie("session", sessionCookie, options);
+      //res.cookie("__session", sessionCookie, options);
       res.status(200).send(JSON.stringify({status:"success"}));
     },
     error => {
@@ -99,14 +99,14 @@ app.get("/sessionLogout", (req, res) => {
   /*
   res.clearCookie("session");
   res.redirect("/sign-in");*/
-  /*
+
   const sessionCookie = req.cookies.session || '';
   res.clearCookie('session');
-  */
   
+  /*
   const sessionCookie = req.cookies["__session"] || "";
   res.clearCookie("__session");
-  
+  */
   admin.auth()
     .verifySessionCookie(sessionCookie)
     .then((decodedClaims) => {

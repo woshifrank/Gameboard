@@ -1,8 +1,8 @@
 const admin = require("firebase-admin");
 
 module.exports = (req, res, next) => {
-  //const sessionCookie = req.cookies.session || "";
-  const sessionCookie = req.cookies["__session"] || "";
+  const sessionCookie = req.cookies.session || "";
+  //const sessionCookie = req.cookies["__session"] || "";
 
   if (sessionCookie === "") {
     res.redirect("/sign-in");
