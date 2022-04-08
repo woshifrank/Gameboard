@@ -6,8 +6,9 @@
     top: 20%;
     left: 20%;
     margin-bottom: 4rem;
-    transform: translate(5%, 5%);
-    /* 
+    transform: translate(3%, 3%);
+    /*
+    5%, 7% 
     position:absolute;
     top: 50%;
     left: 50%;
@@ -17,7 +18,7 @@
     margin-bottom: 2em;
 }
 .header2 {
-    transform: translate(7%, 7%);
+    transform: translate(5%, 5%);
     font-weight: bold;
 }
 .hero-body {
@@ -36,7 +37,7 @@
   }
   .card{
     background-color: transparent; 
-    box-shadow:None
+    box-shadow:None;
   }
   .card-footer{
     border-top:None;
