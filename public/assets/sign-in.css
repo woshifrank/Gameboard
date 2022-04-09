@@ -1,0 +1,10 @@
+* {
+    font-family:'Montserrat';
+}
+.hero-image {
+    background-image: url(../Artwork.png);
+    min-height:750px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}

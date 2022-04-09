@@ -4,6 +4,7 @@
 <head>
   <%- include('../partials/head') %>
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link href="/public/assets/sign-up.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -12,7 +13,7 @@
   </header>
 
   
-  <section class = "hero is-info">
+  <div class = "hero-image">
     <div class = "hero-body">
       <section class="section">
         <div class="columns">
@@ -52,7 +53,7 @@
                 <button class="button is-info is-rounded">Register a new account</button>
               </div>
             </form>
-            
+
             <div id="login-error" style="display: none;">
             </div>
             <div class="field is-grouped is-grouped-centered">
@@ -67,7 +68,7 @@
         </div>
       </section>
     </div>
-  </section>
+  </div>
 </body>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app-compat.js"></script>

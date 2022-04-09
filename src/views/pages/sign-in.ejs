@@ -4,6 +4,7 @@
 <head>
   <%- include('../partials/head') %>
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link href="/public/assets/sign-in.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -11,7 +12,7 @@
     <%- include('../partials/nav', { hideSignIn: true }) %>
   </header>
 
-  <section class = "hero is-info">
+  <div class = "hero-image">
     <div class = "hero-body">
       <div class="container">
         <div class="columns is-centered">
@@ -51,7 +52,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </body>
 <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-auth-compat.js"></script>
