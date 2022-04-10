@@ -4,6 +4,8 @@
 <head>
   <%- include('../partials/head') %>
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link href="/public/assets/dashboard.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -11,41 +13,45 @@
     <%- include('../partials/nav', { email: user.email }) %>
   </header>
 
-  <div class="container">
-    <div class="columns">
-      <div class="column is-3 " style="text-align: right;">
-        <aside class="menu">
-          <p class="menu-label">
-            General
-          </p>
-          <ul class="menu-list">
-            <li><a>Feed</a></li>
+  <div class = "hero-image">
+    <div class = "hero-text">
+      <div class = "header1"><h1>Happy Gaming, yy586@cornell.edu!</h1></div>
 
-          </ul>
-        </aside>
+      <h2 class = "sub-title">Gameboards you have joined</h2>
+      <div class = "group-row wrapper">
+        <span class = "groupName">The Elder Scrolls V: Skyrim(as admin)</span>
+        <button class="button is-info b1">Go to Gameboard</a>
+        <button class="button is-info b1">Manage Group</a>
       </div>
-      <div class="column is-4">
-        <div class="mb-6">
-          <div class="has-text-weight-bold mb-2">
-            Share a new post
-          </div>
-
-          <form action="/dog-messages" method="post">
-            <div class="field has-addons">
-              <input class="input" type="text" name="message" placeholder="Went to the dog park today" />
-              <button class="button is-info">Ruff!</button>
-            </div>
-          </form>
+      <div class = "group-row wrapper">
+        <span class = "groupName">Counter Strike:Global Offensive</span>
+        <button class="button is-info b1">Go to Gameboard</a>
+        <button class="button is-info b1">Leave</a>
+      </div>
+      <h3 class = "sub-title">Popular Gameboards</h2>
+        <div class = "group-row wrapper">
+          <span class = "groupName">Call of Duty:Warzone</span>
+          <button class="button is-info b1">Learn More</a>
+          <button class="button is-info b1">Join</a>
         </div>
-        <div class="feed-stream">
-          <%- include('../partials/feed-stream', { feed: feed }) %>
+        <div class = "group-row wrapper">
+          <span class = "groupName">Tom Clancy's Rainbow Six Siege</span>
+          <button class="button is-info b1">Learn More</a>
+          <button class="button is-info b1">Join</a>
+        </div>
+        <div class = "group-row wrapper">
+          <span class = "groupName">Fortnite</span>
+          <button class="button is-info b1">Learn More</a>
+          <button class="button is-info b1">Join</a>
+        </div>
+      <h4 class = "sub-title">Create/Manage a Gameboard(only for group admins)</h2>
+        <div class = "group-row wrapper">
+          <span class = "groupName">The Elder Scrolls V: Skyrim(as admin)</span>
+          <button class="button is-info b1">Manage Group</a>
         </div>
       </div>
-    </div>
   </div>
 
 </body>
-
-<%- include('../partials/footer') %>
 
 </html>

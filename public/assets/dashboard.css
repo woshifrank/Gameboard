@@ -1,0 +1,46 @@
+* {
+    font-family:'Montserrat';
+}
+.hero-image {
+    background-image: url(../Artwork.png);
+    min-height:750px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+h1 {
+    font-weight:lighter;
+    padding-top:35px;
+    font-size:40px;
+    padding-bottom:25px;
+    padding-left:30px;
+}
+.sub-title {
+    font-weight:bolder;
+    font-size:25px;
+    padding-bottom:10px;
+    padding-top:10px;
+    transform: translate(3%, 0);
+}
+.group-row {
+    transform: translate(5%, 0);
+    padding-top:8px;
+    padding-bottom:8px;
+}
+.wrapper * {
+    vertical-align: middle;
+}
+.groupName{
+    display: inline-block;
+    font-size:20px;
+    font-weight: 600;
+    width:480px;
+}
+
+.b1 {
+    width:150px;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
