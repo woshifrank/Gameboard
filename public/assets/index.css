@@ -12,10 +12,7 @@
 .header1{
     margin-bottom: 2em;
 }
-.header2 {
-    transform: translate(5%, 5%);
-    font-weight: bold;
-}
+
 .hero-body {
     height: 100%;
     margin: 0; 

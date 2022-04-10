@@ -15,13 +15,19 @@
   
   <div class = "hero-image">
     <div class = "hero-body">
+      <div class = "hero-text">
+        <div class = "header1"><h1 class = "title is-2">Ready to try some features?</h1></div>
+        <h4 class = "title is-4 intro">Please sign in to start your Gameboard experience</h2>
+      </div>
       <section class="section">
         <div class="columns">
           <div class="column is-4 is-offset-4">
-            <div class="has-text-weight-bold mb-2">
-              Sign Up for a new account 
-            </div>
             <form id="login-form" class = "box">
+              <div class="subtitle is-3 mb-2">
+               Register 
+              </div>
+              <div class = "sidenote"><span>Already having an account?</span><a href="/sign-in">Sign in</a> within a few seconds.
+              <span>You may also toggle back to </span><a href="/dashboard">Dashboard</a></div>
               <div class="field">
                 <label>New account email</label>
                 <p class="control has-icons-left has-icons-right">
@@ -56,14 +62,7 @@
 
             <div id="login-error" style="display: none;">
             </div>
-            <div class="field is-grouped is-grouped-centered">
-              <p class="control">
-                <a href="/sign-in" class = "button is-primary">Sign in with an existing account</a>
-              </p>
-              <p class="control">
-                <a href="/dashboard" class = "button is-link">Go back to the Dashboard</a>
-              </p>
-            </div>
+
           </div>
         </div>
       </section>
@@ -79,7 +78,6 @@
   window.onload = () => {
     console.log('Running onload')
     const firebaseConfig = {
-      // CS5356 TODO #2
       // Copy your Firebase config here too
       apiKey: "AIzaSyA5vfY17NrDSyCFx7XRfFk93oOACjmVvBg",
       authDomain: "gameboard-75159.firebaseapp.com",
@@ -101,7 +99,6 @@
         const login = event.target.login.value;
         const password = event.target.password.value;
 
-        // CS5356 TODO #3
         // Create a new user using the Firebase SDK for Web
         // Get the users ID token
         // Start a new session with the users ID token

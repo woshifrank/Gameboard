@@ -8,3 +8,39 @@
     background-position: center center;
     background-size: cover;
 }
+.hero-text {
+    text-align: center;
+    top: 20%;
+    left: 20%;
+    margin-bottom: 2rem;
+    padding-top:20px;
+}
+.header1{
+    margin-bottom: 2em;
+}
+.intro{
+    font-weight:lighter;
+}
+.hero-body {
+    height: 100%;
+    margin: 0; 
+}
+.section {
+    padding-top: 2px;
+    padding-bottom:2px;
+}
+.subtitle {
+    font-weight:bolder;
+    color:#485fc7;
+    font-size:30px;
+}
+.sidenote{
+    font-size:12px;
+}
+label {
+    font-weight:bolder;
+    color: #00d1b2;
+}
+.box{
+    box-shadow:None;
+}
