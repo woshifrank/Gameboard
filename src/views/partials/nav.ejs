@@ -1,4 +1,4 @@
-<nav class="navbar is-warning">
+<nav class="navbar is-black">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
@@ -6,13 +6,8 @@
           <span class="icon">
             <i class="fas fa-home"></i>
           </span>
-          <span>Home</span>
+          <span class = "navTitle">Gameboard</span>
         </span>
-      </a>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
       </a>
     </div>
     <% if(locals.email) { %>
@@ -22,7 +17,7 @@
             <%= email %>
               <i class="material-icons">person_outline</i>
           </a>
-          <a href="/sessionLogout" class="button is-primary">Sign out
+          <a href="/sessionLogout" class="button nav_b1">Sign out
           </a>
         </div>
       </div>
@@ -30,7 +25,7 @@
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
             <div class="navbar-item">
-              <a href="/sign-up" class="button is-link">Sign up for a new account
+              <a href="/sign-up" class="button nav_b1">Register
               </a>
             </div>
           </div>
@@ -39,7 +34,7 @@
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
             <div class="navbar-item">
-              <a href="/sign-in" class="button is-primary">Sign in for an existing account
+              <a href="/sign-in" class="button nav_b1">Login in
               </a>
             </div>
           </div>
@@ -49,13 +44,13 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <p class="control">
-                <a href="/sign-in" class="button is-primary">Sign In
+                <a href="/sign-in" class="button nav_b1">Login in
                 </a>
               </p>
             </div>
             <div class="navbar-item">
               <p class="control">
-                <a href="/sign-up" class="button is-link">Sign Up
+                <a href="/sign-up" class="button is-info">Register
                 </a>
               </p>
             </div>

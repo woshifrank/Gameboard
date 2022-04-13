@@ -43,7 +43,25 @@ app.get("/", function (req, res) {
   //Google amazon set up cookies and follow you around in other website
   // window.cookieStore.getAll(), http-only not visible in this case
   //res.cookie('my-cookie','123', {httpOnly = True})
-  res.render("pages/index");
+
+  const sessionCookie = req.cookies.session || "";
+  //const sessionCookie = req.cookies["__session"] || "";
+  if (sessionCookie === "") {
+    res.render("pages/index",{ user: null})
+  }
+  else{
+    admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(userData => {
+      console.log("Logged in:", userData.email);
+      req.user = userData;
+      res.render("pages/index",{ user: req.user});
+    })
+    .catch(error => {
+      res.render("pages/index",{user: null})
+    });
+  }
 });
 
 app.get("/sign-in", function (req, res) {

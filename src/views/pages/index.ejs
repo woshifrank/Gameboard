@@ -13,105 +13,67 @@
 
 <body>
   <header>
-    <%- include('../partials/nav') %>
+    <% if(user !== null) { %>
+      <%- include('../partials/nav',{ email: user.email }) %>
+    <% }else { %>
+      <%- include('../partials/nav') %>
+    <% }%>
   </header>
   <!-- hero-->
   <div class = "hero-image">
-    <div class = "hero-text">
-      <div class = "header1"><h1 class = "title is-2">Find your Gaming Pals in Gameboard</h1></div>
-      <h2 class = "subtitle is-4 header2">Discord style forum specific to video game discussion</h2>
+    <div class = "index-hero-text">
+      <div class = "header1"><h1 class = "subtitle is-4">Find your Gaming Pals in Gameboard</h1></div>  
+      <h2 class = "title is-2 header2">Discord style forum specific to video games</h2>
+      <% if(user !== null) { %>
+        <a href = "/dashboard" class = "button header-nav_b1">
+          Go back to my dashboard
+        </a>
+      <% }else { %>
+        <a href = "/sign-in" class = "button header-nav_b1">
+          Sign in to learn more
+        </a>
+      <% }%>
     </div>
-
-    <!-- column-->
-    <div class = "columns is-multiline">
-      <div class = "column is-half">
-        <div class = "card">
-          <div class = "card-conent">
-            <h3 class = "title is-4">Join or create your own game discussion group</h1>
-            <p>You can create your own game discussion group Gameboard as the admin or explore other popular game discussion groups. Join those that interests you and receive new official annoucements from game companies.</p>
-          </div>
-          <footer class = "card-footer">
-            <div class = "card-footer-item">
-              <a href = "/sign-up" class = "button is-link">
-                New User Sign up
-              </a>
-            </div>
-            <div class = "card-footer-item">
-              <a href = "/sign-in" class = "button is-primary">
-                Existing User Sign in
-              </a>
-            </div>
-          </footer>
-        </div>
-      </div>
-  
-      <div class = "column is-half">
-        <div class = "card">
-          <div class = "card-conent">
-            <h3 class = "title is-4">Explore different channels</h1>
-            <p> Default channels include meme posting, bug reports, team matching and gaming walkthroughs. 
-              You may also create customized channel for your own game</p>
-          </div>
-          <footer class = "card-footer">
-            <div class = "card-footer-item">
-              <a href = "/sign-up" class = "button is-link">
-                New User Sign up
-              </a>
-            </div>
-            <div class = "card-footer-item">
-              <a href = "/sign-in" class = "button is-primary">
-                Existing User Sign in
-              </a>
-            </div>
-          </footer>
-        </div>
-      </div>
-  
-      <div class = "column is-half">
+      <div class = "columns is-multiline index-c">
+        <div class = "column is-half">
           <div class = "card">
             <div class = "card-conent">
-              <h3 class = "title is-4">Share your gaming experience </h1>
-              <p> Post your gaming insights, questions or walkthroughts in discussion channels. 
-                Make comments to other’s posts and share your concerns. </p>
+              <h3 class = "title is-4 index-cardHeader">Join or create your own discussion group</h1>
+              <p class = "index-p">You can create your own game discussion group Gameboard as the admin or explore other popular game discussion groups. Join those that interests you and receive new official annoucements from game companies.</p>
             </div>
-            <footer class = "card-footer">
-              <div class = "card-footer-item">
-                <a href = "/sign-up" class = "button is-link">
-                  New User Sign up
-                </a>
-              </div>
-              <div class = "card-footer-item">
-                <a href = "/sign-in" class = "button is-primary">
-                  Existing User Sign in
-                </a>
-              </div>
-            </footer>
           </div>
-      </div>
-
-      <div class = "column is-half">
+        </div>
+    
+        <div class = "column is-half">
           <div class = "card">
             <div class = "card-conent">
-              <h3 class = "title is-4">Provide feedback to game developers</h1>
-              <p>Post bug reports and gaming experience suggestion to the feedback channel managed by the game developers. 
-                Give a thumbs up if you see others having the same concerns with you.</p>
+              <h3 class = "title is-4 index-cardHeader">Explore different channels</h1>
+              <p class = "index-p"> Default channels include meme posting, bug reports, team matching and gaming walkthroughs. 
+                You may also create customized channel for your own game</p>
             </div>
-            <footer class = "card-footer">
-              <div class = "card-footer-item">
-                <a href = "/sign-up" class = "button is-link">
-                  New User Sign up
-                </a>
-              </div>
-              <div class = "card-footer-item">
-                <a href = "/sign-in" class = "button is-primary">
-                  Existing User Sign in
-                </a>
-              </div>
-            </footer>
           </div>
-      </div>
+        </div>
+    
+        <div class = "column is-half">
+            <div class = "card">
+              <div class = "card-conent">
+                <h3 class = "title is-4 index-cardHeader">Share your gaming experience </h1>
+                <p class = "index-p"> Post your gaming insights, questions or walkthroughts in discussion channels. 
+                  Make comments to other’s posts and share your concerns. </p>
+              </div>
+            </div>
+        </div>
 
-    </div>
+        <div class = "column is-half">
+            <div class = "card">
+              <div class = "card-conent">
+                <h3 class = "title is-4 index-cardHeader">Provide feedback to game developers</h1>
+                <p class = "index-p">Post bug reports and gaming experience suggestion to the feedback channel managed by the game developers. 
+                  Give a thumbs up if you see others having the same concerns with you.</p>
+              </div>
+            </div>
+        </div>
+      </div>
   </div>
   </body>
 </html>
