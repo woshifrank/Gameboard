@@ -44,8 +44,8 @@ app.get("/", function (req, res) {
   // window.cookieStore.getAll(), http-only not visible in this case
   //res.cookie('my-cookie','123', {httpOnly = True})
 
-  const sessionCookie = req.cookies.session || "";
-  //const sessionCookie = req.cookies["__session"] || "";
+  //const sessionCookie = req.cookies.session || "";
+  const sessionCookie = req.cookies["__session"] || "";
   if (sessionCookie === "") {
     res.render("pages/index",{ user: null})
   }
@@ -65,8 +65,8 @@ app.get("/", function (req, res) {
 });
 
 app.get("/sign-in", function (req, res) {
-  const sessionCookie = req.cookies.session || "";
-  //const sessionCookie = req.cookies["__session"] || "";
+  //const sessionCookie = req.cookies.session || "";
+  const sessionCookie = req.cookies["__session"] || "";
   if (sessionCookie === "") {
     res.render("pages/sign-in",{user: null})
   }
@@ -86,8 +86,8 @@ app.get("/sign-in", function (req, res) {
 });
 
 app.get("/sign-up", function (req, res) {
-  const sessionCookie = req.cookies.session || "";
-  //const sessionCookie = req.cookies["__session"] || "";
+  //const sessionCookie = req.cookies.session || "";
+  const sessionCookie = req.cookies["__session"] || "";
   if (sessionCookie === "") {
     res.render("pages/sign-up",{user: null})
   }
@@ -130,8 +130,8 @@ app.post("/sessionLogin", async (req, res) => {
   admin.auth().createSessionCookie(idToken,{expiresIn}).then(
     sessionCookie => {
       const options = {maxAge: expiresIn, httpOnly: true};
-      res.cookie("session", sessionCookie, options);
-      //res.cookie("__session", sessionCookie, options);
+      //res.cookie("session", sessionCookie, options);
+      res.cookie("__session", sessionCookie, options);
       res.status(200).send(JSON.stringify({status:"success"}));
     },
     error => {
@@ -157,15 +157,15 @@ app.get("/sessionLogout", (req, res) => {
   res.clearCookie("session");
   res.redirect("/sign-in");*/
   
-  
+  /*
   const sessionCookie = req.cookies.session || '';
   res.clearCookie('session');
-  
+  */
 
-  /*
+  
   const sessionCookie = req.cookies["__session"] || "";
   res.clearCookie("__session");
-  */
+  
   admin.auth()
     .verifySessionCookie(sessionCookie)
     .then((decodedClaims) => {

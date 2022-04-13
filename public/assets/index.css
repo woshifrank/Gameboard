@@ -33,7 +33,7 @@ p {
 }
 .hero-image {
     background-image: url(../Artwork.png);
-    min-height:750px;
+    min-height:700px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
