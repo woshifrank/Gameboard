@@ -65,11 +65,45 @@ app.get("/", function (req, res) {
 });
 
 app.get("/sign-in", function (req, res) {
-  res.render("pages/sign-in");
+  const sessionCookie = req.cookies.session || "";
+  //const sessionCookie = req.cookies["__session"] || "";
+  if (sessionCookie === "") {
+    res.render("pages/sign-in",{user: null})
+  }
+  else{
+    admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(userData => {
+      console.log("Logged in:", userData.email);
+      req.user = userData;
+      res.render("pages/sign-in",{ user: req.user});
+    })
+    .catch(error => {
+      res.render("pages/sign-in",{user: null})
+    });
+  }
 });
 
 app.get("/sign-up", function (req, res) {
-  res.render("pages/sign-up");
+  const sessionCookie = req.cookies.session || "";
+  //const sessionCookie = req.cookies["__session"] || "";
+  if (sessionCookie === "") {
+    res.render("pages/sign-up",{user: null})
+  }
+  else{
+    admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(userData => {
+      console.log("Logged in:", userData.email);
+      req.user = userData;
+      res.render("pages/sign-up",{ user: req.user});
+    })
+    .catch(error => {
+      res.render("pages/sign-up",{user: null})
+    });
+  }
 });
 
 /*

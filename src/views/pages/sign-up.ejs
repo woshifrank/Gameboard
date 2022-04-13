@@ -9,15 +9,19 @@
 
 <body>
   <header>
-    <%- include('../partials/nav', { hideSignup: true }) %>
+    <% if(user !== null) { %>
+      <%- include('../partials/nav',{ email: user.email }) %>
+    <% }else { %>
+      <%- include('../partials/nav',{ hideSignup: true}) %>
+    <% }%>
   </header>
 
   
   <div class = "hero-image">
     <div class = "hero-body">
       <div class = "sign-up-hero-text">
-        <div class = "header1"><h1 class = "title is-2">Ready to try some features?</h1></div>
-        <h4 class = "title is-4 intro">Please sign in to start your Gameboard experience</h2>
+        <div class = "header1"><h1 class = "title is-2">New to Gameboard?</h1></div>
+        <h4 class = "title is-4 intro">A Quick Registration will start your Gameboard experience</h2>
       </div>
       <section class="section">
         <div class="columns">
@@ -26,8 +30,6 @@
               <div class="subtitle is-3 mb-2">
                Register 
               </div>
-              <div class = "sidenote"><span>Already having an account?</span><a href="/sign-in" class = "toggleLink">Sign in</a> within a few seconds.
-              <span>You may also toggle back to </span><a href="/dashboard" class = "toggleLink">Dashboard</a></div>
               <div class="field">
                 <label>New account email</label>
                 <p class="control has-icons-left has-icons-right">
@@ -55,11 +57,12 @@
                 </p>
               </div>
         
-              <div class="box has-text-centered">
+              <div class="has-text-centered sign-up-box">
                 <button class="button is-info is-rounded">Register a new account</button>
               </div>
+              <span>Already having an account? </span>
+              <a href="/sign-in" class = "toggleLink">Sign in</a> within a few seconds 
             </form>
-
             <div id="login-error" style="display: none;">
             </div>
 

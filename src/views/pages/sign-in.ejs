@@ -9,48 +9,60 @@
 
 <body>
   <header>
-    <%- include('../partials/nav', { hideSignIn: true }) %>
+    <% if(user !== null) { %>
+      <%- include('../partials/nav',{ email: user.email }) %>
+    <% }else { %>
+      <%- include('../partials/nav',{ hideSignIn: true}) %>
+    <% }%>
   </header>
 
-  <div class = "hero-image">
+  <div class = "login-hero-image">
     <div class = "hero-body">
-      <div class="container">
-        <div class="columns is-centered">
-          <form id="login-form" class = "box">
-            <div class="field">
-              <label>Log in with Email</label>
+      <div class = "sign-in-hero-text">
+        <div class = "header1"><h1 class = "title is-2">Ready to try some features?</h1></div>
+        <h4 class = "title is-4 intro">Please sign in to continue your Gameboard journey</h2>
+      </div>
+        <section class="section">
+          <div class="columns">
+            <div class="column is-4 is-offset-4">
+            <form id="login-form" class = "box">
+               <div class="subtitle is-3 mb-2 login-subtitle">
+                  Welcome back! 
+               </div>
+              <div class="field">
+                <label class = "login-label">Log in with Email</label>
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input is-success" type="email" name = "login" placeholder="Email">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </p>
+              </div>
+  
+              <label class = "login-label">Password</label>
               <p class="control has-icons-left has-icons-right">
-                <input class="input is-success" type="email" name = "login" placeholder="Email">
+                <input class="input is-success" type="password" name = "password" id="Your password">
                 <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
+                  <i class="fas fa-lock"></i>
                 </span>
                 <span class="icon is-small is-right">
                   <i class="fas fa-check"></i>
                 </span>
               </p>
-            </div>
-
-            <label>Password</label>
-            <p class="control has-icons-left has-icons-right">
-              <input class="input is-success" type="password" name = "password" id="Your password">
-              <span class="icon is-small is-left">
-                <i class="fas fa-lock"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </p>
-            <div class="box has-text-centered">
-              <button class="button is-success">
-              Login
-              </button>
-            </div>
-              
-            <div id="login-error">
-            </div>
-          </form>
-        </div>
-      </div>
+              <div class="has-text-centered sign-in-box">
+                <button class="button is-success is-rounded login-button">
+                Login to your Gameboard Account
+                </button>
+              </div>
+              <span>New to Gameboard? Try our fast </span><a href="/sign-up" class = "login-toggleLink">Register</a> within a few seconds.
+              </div>
+            </form>
+            </div>>
+          </div>
+        </section>
     </div>
   </div>
 </body>

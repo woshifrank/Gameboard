@@ -1,9 +1,9 @@
 * {
     font-family:'Montserrat';
 }
-.hero-image {
+.login-hero-image {
     background-image: url(../Artwork.png);
-    min-height:750px;
+    min-height:700px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -13,3 +13,41 @@
     background-color: #f5f5f5;
     border-color: transparent;
 }
+.section {
+    padding-top: 2px;
+    padding-bottom:2px;
+}
+.sign-in-hero-text {
+    text-align: center;
+    top: 20%;
+    left: 20%;
+    margin-bottom: 2rem;
+    padding-top:20px;
+}
+.header1{
+    margin-bottom: 2em;
+}
+.intro{
+    font-weight:lighter;
+}
+.login-subtitle {
+    font-weight:bolder;
+    color:#00d1b2;
+    font-size:30px;
+}
+.login-sidenote {
+    font-size:12px;
+}
+.login-toggleLink {
+    font-weight:bolder;
+    color: #485fc7;
+}
+.login-label {
+    font-weight:bolder;
+    color: #00d1b2;
+}
+.sign-in-box {
+    padding-top:14px;
+    padding-bottom:14px;
+}
+
