@@ -7,8 +7,8 @@ const admin = require("firebase-admin");
 const app = express();
 const port = process.env.PORT || 8080;
 const { initializeApp } = require('firebase-admin/app');
+const UserService = require('./app/user-service');
 
-// CS5356 TODO #2
 // add gameboard-serviceAccountKey.json into gitignore
 // Uncomment this next line after you've created
 // gameboard-serviceAccountKey.json
@@ -16,11 +16,11 @@ const serviceAccount = require("../config/gameboard-serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
 
-// CS5356 TODO #2
-// Uncomment this next block after you've created gameboard-serviceAccountKey.json
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
 // use cookies
 app.use(cookieParser());
@@ -89,7 +89,7 @@ app.get("/sign-up", function (req, res) {
   //const sessionCookie = req.cookies.session || "";
   const sessionCookie = req.cookies["__session"] || "";
   if (sessionCookie === "") {
-    res.render("pages/sign-up",{user: null})
+    res.render("pages/sign-up",{user: null, type:'player'})
   }
   else{
     admin
@@ -98,10 +98,57 @@ app.get("/sign-up", function (req, res) {
     .then(userData => {
       console.log("Logged in:", userData.email);
       req.user = userData;
-      res.render("pages/sign-up",{ user: req.user});
+      res.render("pages/sign-up",{ user: req.user, type:'player'});
     })
     .catch(error => {
-      res.render("pages/sign-up",{user: null})
+      res.render("pages/sign-up",{user: null, type:'player'})
+    });
+  }
+});
+
+app.get("/player-sign-up", function (req, res) {
+  //const sessionCookie = req.cookies.session || "";
+  const sessionCookie = req.cookies["__session"] || "";
+  if (sessionCookie === "") {
+    res.render("pages/sign-up",{user: null, type:'player'})
+    // res.render("pages/sign-up",{type: 'provider'})
+    // <%= type %>
+    // <input type="hidden" name = "role" value = "<%= type %>">
+  }
+  else{
+    admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(userData => {
+      req.user = userData;
+      res.render("pages/sign-up",{ user: req.user, type:'player'});
+    })
+    .catch(error => {
+      res.render("pages/sign-up",{user: null, type:'player'})
+    });
+  }
+});
+
+
+app.get("/admin-sign-up", function (req, res) {
+  //const sessionCookie = req.cookies.session || "";
+  const sessionCookie = req.cookies["__session"] || "";
+  if (sessionCookie === "") {
+    res.render("pages/sign-up",{user: null, type:'admin'})
+    // res.render("pages/sign-up",{type: 'provider'})
+    // <%= type %>
+    // <input type="hidden" name = "role" value = "<%= type %>">
+  }
+  else{
+    admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then(userData => {
+      req.user = userData;
+      res.render("pages/sign-up",{ user: req.user, type:'admin'});
+    })
+    .catch(error => {
+      res.render("pages/sign-up",{user: null, type:'admin'})
     });
   }
 });
@@ -116,23 +163,48 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
   res.render("pages/dashboard", { user: req.user});
 });
 
-/* listens to POST requests,*/
+/* add authMiddleware*/
 app.post("/sessionLogin", async (req, res) => {
-  // CS5356 TODO #4
   // Get the ID token from the request body
   // Create a session cookie using the Firebase Admin SDK
   // Set that cookie with the name 'session'
   // And then return a 200 status code instead of a 501
   
   const idToken = req.body.idToken;
-  //console.log(idToken)
+  const role = req.body.role;
+  const signInType = req.body.signInType
+
   const expiresIn = 60 * 60 * 24 * 5 * 1000;
   admin.auth().createSessionCookie(idToken,{expiresIn}).then(
     sessionCookie => {
       const options = {maxAge: expiresIn, httpOnly: true};
       //res.cookie("session", sessionCookie, options);
       res.cookie("__session", sessionCookie, options);
-      res.status(200).send(JSON.stringify({status:"success"}));
+      admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then(userData => {
+          console.log("Logged in:", userData.email);
+          req.user = userData;
+          // take the user id, email, role, saved in firebase
+          const id = userData.sub;
+          const email = userData.email;
+          console.log('signInType:',signInType)
+          if (signInType === 'register') {
+            // save to firebase
+            console.log('start UserService');
+            UserService.createUser(id, email, role).then(() =>{
+              res.status(200).send(JSON.stringify({status:"success"}));
+            }).catch(error => {
+              console.log('createUser error')
+              res.redirect("/sign-in");
+            });
+          }
+          else{
+            console.log('Login succeed');
+            res.status(200).send(JSON.stringify({status:"success"}));
+          }
+        })
     },
     error => {
       console.log(error)
@@ -180,7 +252,6 @@ app.get("/sessionLogout", (req, res) => {
 });
 
 app.post("/dog-messages", authMiddleware, async (req, res) => {
-  // CS5356 TODO #5
   // Get the message that was submitted from the request body
   // Get the user object from the request body
   // Add the message to the userFeed so its associated with the user

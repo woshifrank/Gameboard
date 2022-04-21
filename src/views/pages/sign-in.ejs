@@ -110,7 +110,7 @@
                fetch('/sessionLogin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({idToken})
+                body: JSON.stringify({idToken, signInType:'login'})
               }).then(() =>{
                 // redirect the browser to a new page.
                 window.location.href = '/dashboard'
