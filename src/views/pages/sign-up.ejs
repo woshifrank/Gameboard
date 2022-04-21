@@ -28,8 +28,17 @@
           <div class="column is-4 is-offset-4">
             <form id="login-form" class = "box">
               <div class="subtitle is-3 mb-2">
-               Register as <%= type %>
+                <% if(type === 'player') { %>
+                  Player Registration 
+                <% }else { %>
+                  Admin Registration
+                <% }%>
               </div>
+              <% if(type === 'player') { %>
+                or <a href="/admin-sign-up" class = "toggleLink">as a Gameboard admin </a> 
+              <% }else { %>
+                or <a href="/player-sign-up" class = "toggleLink">as a normal user </a>
+              <% }%>
               <div class="field">
                 <label>New account email</label>
                 <p class="control has-icons-left has-icons-right">
