@@ -6,6 +6,9 @@ if (admin.apps.length === 0) {
     });
 }
 const db = admin.firestore();
+function test1(){
+    console.log('hello');
+}
 module.exports = {
     createUser: async (id,email,role) => {
         const docRef = db.collection('users').doc(id)

@@ -54,7 +54,8 @@ app.get("/", function (req, res) {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(userData => {
-      console.log("Logged in:", userData.email);
+      // console.log("Logged in:", userData.email);
+      //console.log(userData)
       req.user = userData;
       res.render("pages/index",{ user: req.user});
     })
