@@ -184,12 +184,12 @@ app.post("/sessionLogin", async (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then(userData => {
-          console.log("Logged in:", userData.email);
+          //console.log("Logged in:", userData.email);
           req.user = userData;
           // take the user id, email, role, saved in firebase
           const id = userData.sub;
           const email = userData.email;
-          console.log('signInType:',signInType)
+         //console.log('signInType:',signInType)
           if (signInType === 'register') {
             // save to firebase
             console.log('start UserService');
