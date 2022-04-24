@@ -53,35 +53,25 @@ module.exports = {
             slogan: info.slogan,
             intro: info.intro,
             admin_email: info.admin_email,
-            user_emails:[info.admin_email]
+            user_emails:[]
         })
         const userRef = db.collection('users')
         const user_data = await userRef.where("email", "==", info.admin_email).limit(1).get()
 
         user = user_data.docs[0]
-        let user_group = user.data().player_group_ids
         let admin_group = user.data().admin_group_ids
-        if (!user_group){
-            new_user_group = [create_res.id];
+        if (!admin_group){
             new_admin_group = [create_res.id];
             await user.ref.update({
-                player_group_ids: new_user_group,
                 admin_group_ids: new_admin_group
             }).then(function() {
                 console.log("User account update complete for new admin1");
             });
         }
         else{
-            user_group.push(create_res.id)
-            if (!admin_group){
-                new_admin_group = [create_res.id]
-            }
-            else{
-                new_admin_group = admin_group
-                new_admin_group.push(create_res.id)
-            }
+            new_admin_group = admin_group
+            new_admin_group.push(create_res.id)
             await user.ref.update({
-                player_group_ids: user_group,
                 admin_group_ids: new_admin_group
             }).then(function() {
                 console.log("User account update complete for new admin2");
@@ -147,7 +137,16 @@ module.exports = {
     },
 
     getUserPlayerGroup: async (info) =>{
-
+        email = info.email
+        groupRef = db.collection('groups')
+        const groups = await groupRef.where("user_emails", "array-contains", email).get()
+        player_groups = {}
+        for (const group of groups.docs) {
+            let group_name = group.data().group_name
+            let group_intro = group.data().intro
+            player_groups[group_name] = group_intro
+        }
+        return player_groups
     },
     /*only for group admin*/
     changeGroup: async (info) => {

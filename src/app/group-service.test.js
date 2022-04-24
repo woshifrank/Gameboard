@@ -3,9 +3,16 @@ const UserService = require('./group-service');
 
 describe('GroupService', () => {
     it('creates group', async () => {
-        info = {email: '127@gmail.com',
-        group_name: 'Skyrim'}
+        
+        info = {email: 'yy586@cornell.edu'}
+        const res = await GroupService.getUserAdminGroup(info)
+        console.log(res)
+
+        /*
+        info = {email: 'yy586@cornell.edu',
+        group_name: 'Call of Duty: Warzone'}
         const res = await GroupService.joinGroup(info)
+        */
 
         /*
         info = {email: 'yy586@cornell.edu'}
@@ -14,12 +21,12 @@ describe('GroupService', () => {
         */
 
         /*
-        group_info = {group_name:'CSGO-Mods', 
-            game_name: 'Counter-Strike: Global Offensive',
+        group_info = {group_name:'Call of Duty: Warzone', 
+            game_name: 'Call of Duty: Warzone',
             game_type:'FPS', 
-            slogan:'Welcome, MOD makers and users!',
-            intro:'Here houses the discussion channels CSGO MOD making',
-            admin_email: 'yy586@cornell.edu'};
+            slogan:'Welcome, COD players!',
+            intro:'Here houses the discussion channels for COD Warzone',
+            admin_email: 'yyjyang4@umich.edu'};
         const res = await GroupService.createGroup(group_info)
         */
 
