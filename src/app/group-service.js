@@ -39,7 +39,7 @@ module.exports = {
         }
     */
     createGroup: async (info) => {
-        // check if the group exists
+        // TODO: add multi select for channels
         groupRef = db.collection('groups')
         const check = await groupRef.where("group_name", "==", info.group_name).limit(1).get()
         if(check.docs[0]){
@@ -80,9 +80,10 @@ module.exports = {
         return true;
     },
     /*
+    info = {email, user_email}
     returns:
     {
-      group_name: intro,
+      group_name: [intro,id]
       'CSGO-Mods': 'Here houses the discussion channels CSGO MOD making'
     }
     */
@@ -94,10 +95,16 @@ module.exports = {
         for (const group of groups.docs) {
             let group_name = group.data().group_name
             let group_intro = group.data().intro
-            admin_groups[group_name] = group_intro
+            let group_id = group.id
+            admin_groups[group_name] = [group_intro,group_id]
         }
         return admin_groups
     },
+    /*
+    info = {email:user_email
+            group_name:
+            }
+    */
     joinGroup: async (info) => {
         email = info.email
         groupRef = db.collection('groups')
@@ -135,7 +142,13 @@ module.exports = {
             });
         }
     },
-
+    /*
+    info = {info.email}
+    returns:
+    {
+      group_name: [intro,id]
+      'CSGO-Mods': 'Here houses the discussion channels CSGO MOD making'
+    }*/
     getUserPlayerGroup: async (info) =>{
         email = info.email
         groupRef = db.collection('groups')
@@ -144,16 +157,61 @@ module.exports = {
         for (const group of groups.docs) {
             let group_name = group.data().group_name
             let group_intro = group.data().intro
-            player_groups[group_name] = group_intro
+            let group_id = group.id
+            player_groups[group_name] = [group_intro,group_id]
         }
         return player_groups
     },
-    /*only for group admin*/
+    /*only for group admin
+    no channel changing here
+    info:{email:user_email
+          group_id: string,
+          group_name:
+          game_name:
+          game_type:
+          slogan:
+          intro:
+         }
+    */
     changeGroup: async (info) => {
+        email = info.email
+        const groupRef = await db.collection('groups').doc(info.group_id).get()
+        await groupRef.ref.update({
+            group_name: info.group_name,
+            game_name: info.game_name,
+            game_type: info.game_type,
+            slogan: info.slogan,
+            intro: info.intro
+        })
     },
     /* Only for player*/
+    /*
+    info = {email:user_email
+            group_name:
+            }
+    */
     leaveGroup: async(info) =>{
-
+        groupRef = db.collection('groups')
+        const check = await groupRef.where("group_name", "==", info.group_name).get()
+        if(!check.docs[0]){
+            console.log('Error, group name not exists!')
+            return false;
+        }
+        cur_players = check.docs[0].data().user_emails
+        // update group
+        var player_set = new Set(cur_players);
+        player_set.delete(info.email)
+        let new_players = [...player_set];
+        await check.docs[0].ref.update({
+            user_emails: new_players})
+        // update user
+        const userRef = db.collection('users')
+        const user = await userRef.where("email", "==", info.email).limit(1).get()
+        user_groups = user.docs[0].data().player_group_ids
+        var group_set = new Set(user_groups);
+        group_set.delete(check.docs[0].id)
+        await user.docs[0].ref.update({
+            player_group_ids: [...group_set]})
     }
     /*Learn more: user can, explore the posts, but can't make posts 
 comments, like -> join the group.*/
