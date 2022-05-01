@@ -1,4 +1,5 @@
 const admin = require("firebase-admin");
+const UserService = require('./user-service');
 
 module.exports = (req, res, next) => {
   //const sessionCookie = req.cookies.session || "";
@@ -13,7 +14,14 @@ module.exports = (req, res, next) => {
       .then(userData => {
         // console.log("Logged in:", userData.email);
         req.user = userData;
-        next();
+        //userData.email
+        UserService.getUserByEmail(userData.email).then(res => {
+          req.role = res.role
+          next();
+        }).catch(error => {
+          console.log('not found')
+          res.redirect("/sign-in");
+        });
       })
       .catch(error => {
         res.redirect("/sign-in");

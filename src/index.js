@@ -161,6 +161,7 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 });
 */
 app.get("/dashboard", authMiddleware, async function (req, res) {
+  //console.log(req.role)
   res.render("pages/dashboard", { user: req.user});
 });
 
@@ -172,7 +173,7 @@ app.post("/sessionLogin", async (req, res) => {
   // And then return a 200 status code instead of a 501
   
   const idToken = req.body.idToken;
-  const role = req.body.role;
+  const role = req.body.user_role;
   const signInType = req.body.signInType
 
   const expiresIn = 60 * 60 * 24 * 5 * 1000;
@@ -187,19 +188,21 @@ app.post("/sessionLogin", async (req, res) => {
         .then(userData => {
           //console.log("Logged in:", userData.email);
           req.user = userData;
+          //console.log(userData)
           // take the user id, email, role, saved in firebase
           const id = userData.sub;
           const email = userData.email;
          //console.log('signInType:',signInType)
           if (signInType === 'register') {
             // save to firebase
-            console.log('start UserService');
-            UserService.createUser(id, email, role).then(() =>{
-              res.status(200).send(JSON.stringify({status:"success"}));
-            }).catch(error => {
-              console.log('createUser error')
-              res.redirect("/sign-in");
-            });
+            UserService.createUser(id, email, role).then((user_role) => {
+              //console.log(user_role)
+              console.log('start UserService')
+              res.status(200).send(JSON.stringify({
+                status:"success",
+                user_role: user_role
+              }));
+            })
           }
           else{
             console.log('Login succeed');
@@ -213,7 +216,6 @@ app.post("/sessionLogin", async (req, res) => {
         success: false,
         error: JSON.stringify(error)
       });
-      ///res.status(401).send('UNAUTHORIZED REQUEST!');
     }
   );
 });

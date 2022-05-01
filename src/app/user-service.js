@@ -16,7 +16,7 @@ module.exports = {
             email: email,
             role: role,
         })
-        return false;
+        return role
     },
     getUserById: async (id) =>{
         const doc = await db.collection('users').doc(id).get()
@@ -25,6 +25,17 @@ module.exports = {
           return null;
         } else {
           return doc.data();
+        }
+    },
+    getUserByEmail: async(email) =>{
+        userRef = db.collection('users')
+        const user = await userRef.where("email", "==", email).limit(1).get()
+        if (!user.docs[0]) {
+            console.log('No matching documents.');
+            return null;
+        }else{
+            //console.log(user.docs[0].data())
+            return user.docs[0].data()
         }
     }
 

@@ -24,7 +24,7 @@ module.exports = {
             console.log('No matching documents.');
             return null;
         }else{
-            console.log(group.docs[0].data())
+            //console.log(group.docs[0].data())
             return group.docs[0].data()
         }
     },
