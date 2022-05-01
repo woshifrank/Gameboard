@@ -162,7 +162,7 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 */
 app.get("/dashboard", authMiddleware, async function (req, res) {
   //console.log(req.role)
-  res.render("pages/dashboard", { user: req.user});
+  res.render("pages/dashboard", { user: req.user, role:req.role});
 });
 
 /* add authMiddleware*/
