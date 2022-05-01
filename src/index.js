@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 const { initializeApp } = require('firebase-admin/app');
 const UserService = require('./app/user-service');
+const GroupService = require('./app/group-service');
 
 // add gameboard-serviceAccountKey.json into gitignore
 // Uncomment this next line after you've created
@@ -162,7 +163,38 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 */
 app.get("/dashboard", authMiddleware, async function (req, res) {
   //console.log(req.role)
-  res.render("pages/dashboard", { user: req.user, role:req.role});
+  let admin_group = null
+  let player_group = null
+  info = {email:req.user.email}
+  /*
+  {
+    group_name: [intro,id]
+    'CSGO-Mods': 'Here houses the discussion channels CSGO MOD making'
+  }*/
+  if (req.role == 'admin'){
+    admin_group = await GroupService.getUserAdminGroup(info)
+  }
+  player_group = await GroupService.getUserPlayerGroup(info)
+  popular_groups = ['Counter-Strike: Global Offensive','Tom Clancy Rainbow Six Siege', 'Sifu']
+  popular_status = {}
+  for (const name of popular_groups) {
+    if (name in player_group){
+      popular_status[name] = 0 
+    }
+    else if(name in admin_group){
+      popular_status[name] = 1 
+    }
+    else{
+      popular_status[name] = 2
+    }
+  }
+  console.log(popular_status)  
+  res.render("pages/dashboard", { user: req.user, 
+    role:req.role,
+    admin_info:admin_group,
+    player_info: player_group,
+    popular_status: popular_status
+  });
 });
 
 /* add authMiddleware*/
