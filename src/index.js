@@ -175,7 +175,7 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
     admin_group = await GroupService.getUserAdminGroup(info)
   }
   player_group = await GroupService.getUserPlayerGroup(info)
-  popular_groups = ['Counter-Strike: Global Offensive','Tom Clancy Rainbow Six Siege', 'Sifu']
+  popular_groups = ['Elden Ring','Tom Clancy Rainbow Six Siege', 'Sifu']
   popular_status = {}
   for (const name of popular_groups) {
     if (name in player_group){
@@ -188,7 +188,7 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
       popular_status[name] = 2
     }
   }
-  console.log(popular_status)  
+  //console.log(popular_status)  
   res.render("pages/dashboard", { user: req.user, 
     role:req.role,
     admin_info:admin_group,
@@ -251,13 +251,6 @@ app.post("/sessionLogin", async (req, res) => {
     }
   );
 });
-/*
-await fetch('/sessionLogin', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: .... // add the users ID token here
-})  
-*/
 
 app.get("/sessionLogout", (req, res) => {
   /*
@@ -284,6 +277,21 @@ app.get("/sessionLogout", (req, res) => {
     .catch((error) => {
       res.redirect('/sign-in');
     });
+});
+
+app.post("/join-group", authMiddleware, async (req, res) => {
+  info = {email:req.user.email,
+          group_name:req.body.group}
+  GroupService.joinGroup(info).then(()=>{
+    res.status(200).send(JSON.stringify({status:"success"}));
+  })
+});
+app.post("/leave-group", authMiddleware, async (req, res) => {
+  info = {email:req.user.email,
+    group_name:req.body.group}
+  GroupService.leaveGroup(info).then(()=>{
+    res.status(200).send(JSON.stringify({status:"success"}));
+  })
 });
 
 app.post("/dog-messages", authMiddleware, async (req, res) => {

@@ -22,7 +22,7 @@
         <div class = "group-row wrapper">
           <span class = "groupName"><%- name %></span>
           <button class="button is-info b1">Go to Gameboard</a>
-          <button class="button is-info b1">Leave</a>
+          <button class="button is-info b1 leave" id = '<%- name %>'>Leave</a>
         </div>
       <% } %>
       <% if(role === 'admin') { %>
@@ -45,18 +45,52 @@
             <span class = "groupName"><%- name %></span>
             <% if(popular_status[name] === 0) {%>
               <button class="button is-info b1">Go to Gameboard</a>
-              <button class="button is-info b1">Leave</a>
+              <button class="button is-info b1 leave" id = '<%- name %>'>Leave</a>
             <% } else if(popular_status[name] === 1) {%>
               <button class="button is-info b1">Go to Gameboard</a>
               <button class="button is-info b1">Manage Group</a>
             <% }else {%>
-              <button class="button is-info b1">Learn More</a>
-              <button class="button is-info b1">Join</a>
+              <button class="button is-info b1 join" id = '<%- name %>'>Join</a>
             <% }%>
           </div>
         <% } %>
   </div>
 
 </body>
-
+<script>
+  const join_buttons = document.querySelectorAll('.join')
+  join_buttons.forEach(function(button){
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      let group_name = event.target.id
+      fetch('/join-group',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({group:group_name})
+      }).then(function (result) {
+        window.location.href = '/dashboard'
+      }).catch(function (err) {
+        console.error(err);
+      });
+    });
+  })
+</script>
+<script>
+  const leave_buttons = document.querySelectorAll('.leave')
+  leave_buttons.forEach(function(button){
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      let group_name = event.target.id
+      fetch('/leave-group',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({group:group_name})
+      }).then(function (result) {
+        window.location.href = '/dashboard'
+      }).catch(function (err) {
+        console.error(err);
+      });
+    });
+  })
+</script>
 </html>
