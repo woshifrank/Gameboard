@@ -44,8 +44,9 @@ module.exports = {
         const check = await groupRef.where("group_name", "==", info.group_name).limit(1).get()
         if(check.docs[0]){
             console.log('Error, group name exists!')
-            return false;
+            return false ;
         }
+        console.log(info)    
         const create_res = await db.collection('groups').add({
             group_name: info.group_name, 
             game_name: info.game_name,

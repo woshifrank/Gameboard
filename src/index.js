@@ -154,13 +154,53 @@ app.get("/admin-sign-up", function (req, res) {
     });
   }
 });
-
-/*
-app.get("/dashboard", authMiddleware, async function (req, res) {
-  const feed = await userFeed.get();
-  res.render("pages/dashboard", { user: req.user, feed });
+app.get("/create-group-page", authMiddleware, async (req, res) => {
+  /*
+  {group_name:'CSGO-Mods', 
+  game_name: 'Counter-Strike: Global Offensive',
+  game_type:'FPS', 
+  slogan:'Welcome, MOD makers and users!',
+  intro:'Here houses the discussion channels CSGO MOD making',
+  admin_email: 'yy586@cornell.edu'
+  }
+  */
+  res.render("pages/group-create", { user: req.user, 
+    role:req.role
+  });
 });
-*/
+app.post("/create-group", authMiddleware, async (req, res) => {
+  /*
+  {group_name:'CSGO-Mods', 
+  game_name: 'Counter-Strike: Global Offensive',
+  game_type:'FPS', 
+  slogan:'Welcome, MOD makers and users!',
+  intro:'Here houses the discussion channels CSGO MOD making',
+  admin_email: 'yy586@cornell.edu'
+  }
+  */
+  info = {
+    group_name : req.body.group_name,
+    game_name : req.body.game_name,
+    game_type : req.body.game_type,
+    slogan: req.body.slogan,
+    intro: req.body.intro,
+    admin_email: req.user.email
+  }
+  console.log(info)
+  GroupService.createGroup(info).then((success)=>{
+    if(success === true){
+      console.log('yes')
+      res.json({success:true});
+    }
+    else{
+      console.log('no')
+      res.json({success:false});
+    }
+  })
+});
+app.get("/modify-group-page", authMiddleware, async (req, res) => {
+  /* get current result, leave them there*/
+});
 app.get("/dashboard", authMiddleware, async function (req, res) {
   //console.log(req.role)
   let admin_group = null

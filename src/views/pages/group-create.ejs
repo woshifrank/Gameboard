@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+  <script src="https://kit.fontawesome.com/c03ec31dc2.js" crossorigin="anonymous"></script>
+  <link href="/public/assets/group-create.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/nav', {email: user.email }) %>
+    </header>
+    <div class = "hero-image">
+        <div class = "hero-text">
+          <form id="create-form">
+            <div class = "header1"><h1>Create a New Gameboard</h1></div>
+            <div class="field is-horizontal">
+                <div class="field-label is-large">
+                  <label class="label">A Name and A Game</label>
+                </div>
+                <div class="field-body">
+                  <div class="field group-name-input">
+                    <p class="control has-icons-left">
+                      <input class="input" type="text" name = "group_name" placeholder="Enter a name for your Gameboard">
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-group"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <div class="field game-name-input">
+                    <p class="control has-icons-left">
+                      <input class="input" type="text" name = "game_name" placeholder="Enter the video game name">
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-gamepad"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-large">
+                <label class="label">Game Type</label>
+              </div>
+              <div class="field-body">
+                <div class="field is-narrow">
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select name = "game_type">
+                        <option>Real-time Strategy(RTS)</option>
+                        <option>Shooters(FPS and TPS)</option>
+                        <option>MOBA</option>
+                        <option>RPG,ARPG</option>
+                        <option>Survival and Horror</option>
+                        <option>Action-Adventure</option>
+                        <option>Simulation and Sports</option>
+                        <option>Sandbox</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-large">
+                <label class="label">Gameboard Slogan</label>
+              </div>
+              <div class="field-body">
+                <div class="field group-slogan-input">
+                  <p class="control has-icons-left">
+                    <input class="input" type="text" name = "slogan" placeholder="A welcoming slogan">
+                    <span class="icon is-small is-left">
+                      <i class="material-icons">&#xe264;</i>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label is-large">
+                <label class="label">Gameboard Intro</label>
+              </div>
+              <div class="field-body">
+                <div class="field group-slogan-input">
+                  <p class="control has-icons-left">
+                    <textarea class="textarea" name = "intro" placeholder="Please enter a short intro for your Gameboard"></textarea>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal group-buttons">
+              <div class="field-label">
+                <!-- Left empty for spacing -->
+              </div>
+              <div class="field-body">
+                <div class="field is-grouped">
+                  <div class="control">
+                    <button class="button is-link" type = "submit" id = "createB">Submit</button>
+                  </div>
+                  <div class="control">
+                    <button class="button is-link is-light" id = "cancel">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+    
+</body>
+<script>
+    document
+      .getElementById('create-form')
+      .addEventListener('submit', (event) => {
+        event.preventDefault();
+        const group_name = event.target.group_name.value;
+        const game_name = event.target.game_name.value;
+        const game_type = event.target.game_type.value;
+        const slogan = event.target.slogan.value;
+        const intro = event.target.intro.value;
+
+        fetch('/create-group',{
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            group_name :  group_name,
+            game_name: game_name,
+            game_type: game_type,
+            slogan: slogan,
+            intro: intro
+          })
+        }).then((result) =>result.json().then((data) =>{
+          if(data.success === true){
+            window.location.href = '/dashboard'
+          }
+          else if (data.success === false){
+            alert('Oops, this group name has been used. Please try a new one')
+          }
+          else{
+            window.location.href = '/dashboard'
+          }
+        })
+          /*
+          if(result.data.success === true){
+            window.location.href = '/dashboard'
+          }
+          else if (result.data.success === false){
+            alert('Oops, this group name has been used. Please try a new one')
+          }
+          else{
+            window.location.href = '/dashboard'
+          }*/
+        ).catch(function (err) {
+          console.error(err);
+        });
+      });
+</script>
+<script>
+  document.getElementById("cancel").addEventListener('click', (event) => {
+      event.preventDefault();
+      let group_name = event.target.id
+      window.location.href = '/dashboard'
+    });
+</script>
+</html>
