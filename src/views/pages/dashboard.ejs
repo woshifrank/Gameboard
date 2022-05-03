@@ -31,7 +31,7 @@
             <div class = "group-row wrapper">
               <span class = "groupName"><%- name %></span>
               <button class="button is-info b1">Go to Gameboard</a>
-              <button class="button is-info b1">Manage Group</a>
+              <button class="button is-info b1 edit" id = '<%- admin_info[name][1] %>'>Manage Group</a>
             </div>
           <% } %>
           <div class = "group-row wrapper">
@@ -48,7 +48,7 @@
               <button class="button is-info b1 leave" id = '<%- name %>'>Leave</a>
             <% } else if(popular_status[name] === 1) {%>
               <button class="button is-info b1">Go to Gameboard</a>
-              <button class="button is-info b1">Manage Group</a>
+              <button class="button is-info b1 edit" id = '<%- admin_info[name][1] %>'>Manage Group</a>
             <% }else {%>
               <button class="button is-info b1 join" id = '<%- name %>'>Join</a>
             <% }%>
@@ -90,6 +90,16 @@
       }).catch(function (err) {
         console.error(err);
       });
+    });
+  })
+</script>
+<script>
+  const edit_buttons = document.querySelectorAll('.edit')
+  edit_buttons.forEach(function(button){
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      let group_id = event.target.id
+      window.location.href = '/modify-group-page/' + group_id
     });
   })
 </script>

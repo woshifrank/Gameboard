@@ -198,9 +198,37 @@ app.post("/create-group", authMiddleware, async (req, res) => {
     }
   })
 });
-app.get("/modify-group-page", authMiddleware, async (req, res) => {
-  /* get current result, leave them there*/
+app.get("/modify-group-page/:group_id", authMiddleware, async (req, res) => {
+  let group = await GroupService.getGroupById(req.params.group_id)
+  res.render("pages/group-edit", { user: req.user, 
+    role:req.role,
+    group_id:req.params.group_id,
+    old_group_name:group.group_name
+  });
 });
+app.patch("/edit-group", authMiddleware, async (req, res) => {
+  info = {
+    group_name : req.body.group_name,
+    game_name : req.body.game_name,
+    game_type : req.body.game_type,
+    slogan: req.body.slogan,
+    intro: req.body.intro,
+    email: req.user.email,
+    group_id: req.body.group_id
+  }
+  // need group_id, old_group_name
+  console.log(info)
+  GroupService.changeGroup(info).then((success)=>{
+    if(success === true){
+      console.log('yes')
+      res.json({success:true});
+    }
+    else{
+      console.log('no')
+      res.json({success:false});
+    }
+  })
+})
 app.get("/dashboard", authMiddleware, async function (req, res) {
   //console.log(req.role)
   let admin_group = null

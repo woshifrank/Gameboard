@@ -3,7 +3,7 @@
 
 <head>
   <%- include('../partials/head') %>
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://kit.fontawesome.com/c03ec31dc2.js" crossorigin="anonymous"></script>
   <link href="/public/assets/group-edit.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -12,39 +12,40 @@
     </header>
     <div class = "hero-image">
         <div class = "hero-text">
-            <div class = "header1"><h1>Modify the Gameboard</h1></div>
+          <form id="edit-form">
+            <div class = "header1"><h1>Modify <%= old_group_name %></h1></div>
             <div class="field is-horizontal">
-                <div class="field-label is-large">
-                  <label class="label">Change Group Name and Game</label>
+              <div class="field-label is-large">
+                <label class="label">A New Name/Game</label>
+              </div>
+              <div class="field-body">
+                <div class="field group-name-input">
+                  <p class="control has-icons-left">
+                    <input class="input" type="text" name = "group_name" placeholder="Enter a name for your Gameboard">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-group"></i>
+                    </span>
+                  </p>
                 </div>
-                <div class="field-body">
-                  <div class="field group-name-input">
-                    <p class="control has-icons-left">
-                      <input class="input" type="text" placeholder="Enter a name for your Gameboard">
-                      <span class="icon is-small is-left">
-                        <i class="fa fa-group"></i>
-                      </span>
-                    </p>
-                  </div>
-                  <div class="field game-name-input">
-                    <p class="control has-icons-left">
-                      <input class="input" type="text" placeholder="Enter the video game name">
-                      <span class="icon is-small is-left">
-                        <i class="fa fa-gamepad"></i>
-                      </span>
-                    </p>
-                  </div>
+                <div class="field game-name-input">
+                  <p class="control has-icons-left">
+                    <input class="input" type="text" name = "game_name" placeholder="Enter the video game name">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-gamepad"></i>
+                    </span>
+                  </p>
                 </div>
+              </div>
             </div>
             <div class="field is-horizontal">
               <div class="field-label is-large">
-                <label class="label">Game Type</label>
+                <label class="label">A New Game Type</label>
               </div>
               <div class="field-body">
                 <div class="field is-narrow">
                   <div class="control">
                     <div class="select is-fullwidth">
-                      <select>
+                      <select name = "game_type">
                         <option>Real-time Strategy(RTS)</option>
                         <option>Shooters(FPS and TPS)</option>
                         <option>MOBA</option>
@@ -62,12 +63,12 @@
             </div>
             <div class="field is-horizontal">
               <div class="field-label is-large">
-                <label class="label">Gameboard Slogan</label>
+                <label class="label">A New Slogan</label>
               </div>
               <div class="field-body">
                 <div class="field group-slogan-input">
                   <p class="control has-icons-left">
-                    <input class="input" type="text" placeholder="A welcoming slogan">
+                    <input class="input" type="text" name = "slogan" placeholder="A new slogan">
                     <span class="icon is-small is-left">
                       <i class="material-icons">&#xe264;</i>
                     </span>
@@ -78,12 +79,12 @@
 
             <div class="field is-horizontal">
               <div class="field-label is-large">
-                <label class="label">Gameboard Intro</label>
+                <label class="label">A New Gameboard Intro</label>
               </div>
               <div class="field-body">
                 <div class="field group-slogan-input">
                   <p class="control has-icons-left">
-                    <textarea class="textarea" placeholder="Please enter a short intro for your Gameboard"></textarea>
+                    <textarea class="textarea" name = "intro" placeholder="Please enter a new intro for your Gameboard"></textarea>
                   </p>
                 </div>
               </div>
@@ -96,19 +97,60 @@
               <div class="field-body">
                 <div class="field is-grouped">
                   <div class="control">
-                    <button class="button is-link">Submit</button>
+                    <button class="button is-link" type = "submit" id = "editB">Submit</button>
                   </div>
                   <div class="control">
-                    <button class="button is-link is-light">Cancel</button>
+                    <button class="button is-link is-light" id = "cancel">Cancel</button>
                   </div>
                 </div>
               </div>
             </div>
+          </form>
         </div>
     </div>
     
 </body>
 <script>
-
+  document.getElementById('edit-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const group_name = event.target.group_name.value;
+    const game_name = event.target.game_name.value;
+    const game_type = event.target.game_type.value;
+    const slogan = event.target.slogan.value;
+    const intro = event.target.intro.value;
+    var old_group_name = '<%- old_group_name %>'
+    var group_id = '<%- group_id %>'
+    fetch('/edit-group',{
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        group_name :  group_name,
+        game_name: game_name,
+        game_type: game_type,
+        slogan: slogan,
+        intro: intro,
+        group_id: group_id
+      })
+    }).then((result) =>result.json().then((data) =>{
+      if(data.success === true){
+        window.location.href = '/dashboard'
+      }
+      else if (data.success === false){
+        alert('Oops, this group name has been used. Please try a new one')
+      }
+      else{
+        window.location.href = '/dashboard'
+      }
+    })
+    ).catch(function (err) {
+      console.error(err);
+    });
+  });
+</script>
+<script>
+ document.getElementById("cancel").addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = '/dashboard'
+    });
 </script>
 </html>

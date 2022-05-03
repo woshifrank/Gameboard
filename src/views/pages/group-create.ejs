@@ -142,16 +142,6 @@
             window.location.href = '/dashboard'
           }
         })
-          /*
-          if(result.data.success === true){
-            window.location.href = '/dashboard'
-          }
-          else if (result.data.success === false){
-            alert('Oops, this group name has been used. Please try a new one')
-          }
-          else{
-            window.location.href = '/dashboard'
-          }*/
         ).catch(function (err) {
           console.error(err);
         });
@@ -160,7 +150,6 @@
 <script>
   document.getElementById("cancel").addEventListener('click', (event) => {
       event.preventDefault();
-      let group_name = event.target.id
       window.location.href = '/dashboard'
     });
 </script>

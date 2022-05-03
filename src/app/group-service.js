@@ -176,14 +176,21 @@ module.exports = {
     */
     changeGroup: async (info) => {
         email = info.email
-        const groupRef = await db.collection('groups').doc(info.group_id).get()
-        await groupRef.ref.update({
+        groupRef = db.collection('groups')
+        const check = await groupRef.where("group_name", "==", info.group_name).limit(1).get()
+        if(check.docs[0]){
+            console.log('Error, group name exists!')
+            return false ;
+        }
+        const group = await groupRef.doc(info.group_id).get()
+        await group.ref.update({
             group_name: info.group_name,
             game_name: info.game_name,
             game_type: info.game_type,
             slogan: info.slogan,
             intro: info.intro
         })
+        return true
     },
     /* Only for player*/
     /*
