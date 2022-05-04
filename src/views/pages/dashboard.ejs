@@ -21,7 +21,7 @@
       <% for (let name in player_info) { %>
         <div class = "group-row wrapper">
           <span class = "groupName"><%- name %></span>
-          <button class="button is-info b1">Go to Gameboard</a>
+          <button class="button is-info b1 gameboard" id = '<%- name %>'>Go to Gameboard</a>
           <button class="button is-info b1 leave" id = '<%- name %>'>Leave</a>
         </div>
       <% } %>
@@ -30,7 +30,7 @@
           <% for (let name in admin_info) { %>
             <div class = "group-row wrapper">
               <span class = "groupName"><%- name %></span>
-              <button class="button is-info b1">Go to Gameboard</a>
+              <button class="button is-info b1 gameboard" id = '<%- name %>'>Go to Gameboard</a>
               <button class="button is-info b1 edit" id = '<%- admin_info[name][1] %>'>Manage Group</a>
             </div>
           <% } %>
@@ -44,10 +44,10 @@
           <div class = "group-row wrapper">
             <span class = "groupName"><%- name %></span>
             <% if(popular_status[name] === 0) {%>
-              <button class="button is-info b1">Go to Gameboard</a>
+              <button class="button is-info b1 gameboard" id = '<%- name %>'>Go to Gameboard</a>
               <button class="button is-info b1 leave" id = '<%- name %>'>Leave</a>
             <% } else if(popular_status[name] === 1) {%>
-              <button class="button is-info b1">Go to Gameboard</a>
+              <button class="button is-info b1 gameboard" id = '<%- name %>'>Go to Gameboard</a>
               <button class="button is-info b1 edit" id = '<%- admin_info[name][1] %>'>Manage Group</a>
             <% }else {%>
               <button class="button is-info b1 join" id = '<%- name %>'>Join</a>
@@ -100,6 +100,16 @@
       event.preventDefault();
       let group_id = event.target.id
       window.location.href = '/modify-group-page/' + group_id
+    });
+  })
+</script>
+<script>
+  const group_buttons = document.querySelectorAll('.gameboard')
+  group_buttons.forEach(function(button){
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      let group_name = event.target.id
+      window.location.href = '/gameboard/' + group_name
     });
   })
 </script>

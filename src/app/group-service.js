@@ -18,6 +18,7 @@ module.exports = {
         }
     },
     getGroupByName: async (name) => {
+        console.log(name)
         groupRef = db.collection('groups')
         const group = await groupRef.where("group_name", "==", name).limit(1).get()
         if (!group.docs[0]) {
@@ -25,7 +26,9 @@ module.exports = {
             return null;
         }else{
             //console.log(group.docs[0].data())
-            return group.docs[0].data()
+            res = group.docs[0].data()
+            res.group_id = group.docs[0].id
+            return res
         }
     },
     // 

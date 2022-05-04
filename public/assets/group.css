@@ -1,0 +1,103 @@
+* {
+    font-family:'Montserrat';
+}
+.hero-image {
+    background-image: url(../Artwork.png);
+    min-height:800px;
+    background-repeat: repeat;
+    background-position: center center;
+    background-size: cover;
+}
+h1 {
+    font-weight:lighter;
+    padding-top:35px;
+    font-size:40px;
+    padding-bottom:25px;
+    padding-left:30px;
+}
+.sub-title {
+    font-weight:bolder;
+    font-size:25px;
+    padding-bottom:10px;
+    padding-top:10px;
+    transform: translate(3%, 0);
+}
+.column.is-3 {
+    background-color:#d1d1d1;
+    min-height:800px;
+    padding-left:0.75em;
+}
+.column {
+    padding:0em;
+}
+.post-label{
+    font-weight:bolder;
+    color:#00d1b2;
+}
+.group-menu-label {
+    font-size:24px;
+    color:black;
+}
+.menu-list{
+    background-color:grey;
+}
+.group-menu-item {
+    font-size:20px;
+    font-weight:bolder;
+    color:white;
+}.group-menu-item:hover{
+    color:black;
+}
+li:hover{
+    background-color:#1B3E70;
+    color:white;
+}
+.post-card {
+    background-color:#F5CA7B
+}
+.author-info{
+    color:#00d1b2;
+}
+.group-row {
+    transform: translate(5%, 0);
+    padding-top:8px;
+    padding-bottom:8px;
+}
+.wrapper * {
+    vertical-align: middle;
+}
+.groupName{
+    display: inline-block;
+    font-size:20px;
+    font-weight: 600;
+    width:480px;
+}
+
+.b1 {
+    width:150px;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.field:not(:last-child) {
+    margin-bottom: 1em;
+}
+.field {
+    margin-top:1em;
+}
+.group-buttons {
+    margin-top:1.5em;
+    margin-bottom: 1.5em;
+}
+.group-name-input {
+    max-width:390px;
+}
+
+.game-name-input {
+    max-width:420px;
+}
+
+.group-slogan-input{
+    max-width:700px;
+}

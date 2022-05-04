@@ -9,6 +9,7 @@ const port = process.env.PORT || 8080;
 const { initializeApp } = require('firebase-admin/app');
 const UserService = require('./app/user-service');
 const GroupService = require('./app/group-service');
+const PostService = require('./app/post-service');
 
 // add gameboard-serviceAccountKey.json into gitignore
 // Uncomment this next line after you've created
@@ -186,14 +187,14 @@ app.post("/create-group", authMiddleware, async (req, res) => {
     intro: req.body.intro,
     admin_email: req.user.email
   }
-  console.log(info)
+  //console.log(info)
   GroupService.createGroup(info).then((success)=>{
     if(success === true){
-      console.log('yes')
+      //console.log('yes')
       res.json({success:true});
     }
     else{
-      console.log('no')
+      //console.log('no')
       res.json({success:false});
     }
   })
@@ -217,18 +218,67 @@ app.patch("/edit-group", authMiddleware, async (req, res) => {
     group_id: req.body.group_id
   }
   // need group_id, old_group_name
-  console.log(info)
+  // console.log(info)
   GroupService.changeGroup(info).then((success)=>{
     if(success === true){
-      console.log('yes')
+      //console.log('yes')
       res.json({success:true});
     }
     else{
-      console.log('no')
+      //console.log('no')
       res.json({success:false});
     }
   })
 })
+app.get("/gameboard/:group_name", authMiddleware, async (req, res) => {
+  info = {email:req.user.email}
+  let group = await GroupService.getGroupByName(req.params.group_name)
+  // console.log(group)
+  let admin_group = {}
+  let player_group = {}
+  if (req.role == 'admin'){
+    admin_group = await GroupService.getUserAdminGroup(info)
+  }
+  player_group = await GroupService.getUserPlayerGroup(info)
+  let post_info = await PostService.getPostByGroupId(group.group_id)
+  console.log(post_info)
+  res.render("pages/group", { user: req.user,
+    role:req.role, 
+    group_id : group.group_id,
+    group_name: req.params.group_name,
+    group_intro: group.intro,
+    group_slogan: group.slogan,
+    admin_info:admin_group,
+    player_info: player_group,
+    post_info: post_info
+  });
+});
+app.post("/create-post", authMiddleware, async (req, res) => {
+ /*
+    group_name
+    title
+    body
+    author
+    time
+  */
+  info = {
+    group_name : req.body.group_name,
+    title : req.body.title,
+    post_body : req.body.post_body,
+    author: req.user.email
+  }
+  //console.log(info)
+  PostService.makePost(info).then((success)=>{
+    if(success === true){
+      //console.log('yes')
+      res.json({success:true});
+    }
+    else{
+      //console.log('no')
+      res.json({success:false});
+    }
+  })
+});
 app.get("/dashboard", authMiddleware, async function (req, res) {
   //console.log(req.role)
   let admin_group = null
@@ -247,12 +297,15 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
   popular_status = {}
   for (const name of popular_groups) {
     if (name in player_group){
+      // joined as player
       popular_status[name] = 0 
     }
-    else if(name in admin_group){
+    else if(admin_group && name in admin_group){
+      // already an admin
       popular_status[name] = 1 
     }
     else{
+      // not in the group, can join
       popular_status[name] = 2
     }
   }
