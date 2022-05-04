@@ -41,12 +41,6 @@ app.use("/public", express.static("public/"));
 // use res.render to load up an ejs view file
 // index page
 app.get("/", function (req, res) {
-  //HTTP only = no sensitive data in cookies!
-  //Google amazon set up cookies and follow you around in other website
-  // window.cookieStore.getAll(), http-only not visible in this case
-  //res.cookie('my-cookie','123', {httpOnly = True})
-
-  //const sessionCookie = req.cookies.session || "";
   const sessionCookie = req.cookies["__session"] || "";
   if (sessionCookie === "") {
     res.render("pages/index",{ user: null})
