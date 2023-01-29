@@ -7,9 +7,6 @@
 * View Emulator UI at http://127.0.0.1:4000
 * Please check gitignore for serviceAccountKey naming
 
-## deployed version
-* Please go to https://gameboard-75159.web.app/
-
 ## APIs for authentication
 Get "/" : The landing page
 
